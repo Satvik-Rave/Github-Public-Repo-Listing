@@ -2,13 +2,14 @@
 const user = "Satvik-Rave";
 // const user="johnpapa";
 // const user="milind-nair";
+// const user="mansi-123";
 async function bioUpdate() {
     await fetch(`https://api.github.com/users/${user}`)
         .then((res) => { return res.json(); })
         .then(async (data) => {
             // console.log(data);
             document.getElementById("name").innerHTML = data.name;
-            document.getElementById("location").innerHTML = data.location;
+            document.querySelector("#location span").innerText = data.location;
             document.getElementById("link").innerHTML = data.html_url;
             document.getElementById("link").setAttribute("href",data.html_url);
             document.getElementById("bio").innerHTML = data.bio;
@@ -26,9 +27,10 @@ async function apiCall() {
                 // console.log(ele);
                 var name = ele.name;
                 var description = ele.description;
+                var repoLink = ele.html_url;
                 var langsStr = await getStr(name);
                 // console.log(langsStr);
-                var update = `<div class="repos"><div class="repo"><h2>${name}</h2><div class="bio">${description}</div><div class="languages">${langsStr}</div></div></div>`;
+                var update = `<div class="repos"><div class="repo"><a href="${repoLink}" style="text-decoration: none; color: black;" target="_blank"><h2>${name}</h2></a><div class="bio">${description}</div><div class="languages">${langsStr}</div></div></div>`;
                 document.getElementById("c2").innerHTML += update;
             }
         });

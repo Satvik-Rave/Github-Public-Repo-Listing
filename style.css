@@ -10,13 +10,13 @@ body{
 .c1{
     display: flex;
     width: 100%;
-    /* padding: 3%; */
     height: 25ch;
-    background-color: whitesmoke;
+    background-color: black;
     justify-content: space-around;
 }
 .c1 img{
-    width: 100px;
+    width: 130px;
+    border: 5px solid black;
     border-radius: 50%;
 }
 .icon{
@@ -26,34 +26,52 @@ body{
     justify-content: space-evenly;
     width: 20%;
     height: 25ch;
+    color: white;
+}
+.icon a:hover{
+    color: red !important;
 }
 .desc{
     display: flex;
-    /* width: 60%; */
+    width: 50%;
     flex-direction: column;
     justify-content: center;
+    font-size: x-large;
+    color: white;
 }
 .srh{
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-    width: 20%;
+    width: 16%;
+}
+.srh input{
+    width: 65%;
+    border: 2px solid black;
+    padding: 3px;
+    border-radius: 10px;
+}
+#sbtn{
+    padding: 3px;
+    background-color: #0082f3;
+    border-radius: 5px;
+    color: white;
 }
 #c2{
     display: grid;
     width: 100%;
-    /* height: 100ch; */
-    /* background-color: red; */
-    row-gap: 10px;
-    column-gap: 10px;
+    padding-top: 2%;
+    row-gap: 20px;
     grid-template-columns: 50% 50%;
 }
+#c2 a:hover{
+    color: red !important;
+}
 .repos{
-    /* background-color: pink; */
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 20ch;
+    height: 25vh;
     width: 100%;
 }
 .repo{
@@ -62,21 +80,24 @@ body{
     justify-content: space-between;
     width: 80%;
     height: 80%;
-    border: 2px solid black;
+    border: 3px solid black;
     padding: 10px;
+    border-radius: 20px;
+    background-color: #e7e7e7;
+}
+.bio{
+    font-size: small;
 }
 .languages{
     width: 100%;
     display: flex;
-    /* justify-content: space-between; */
-    /* flex-direction: row; */
 }
 .lang{
-    /* width: 5%; */
-    background-color: blue;
+    padding: 3px;
+    background-color: #0082f3;
+    border-radius: 5px;
     color: white;
     margin-right: 15px;
-    /* height: 2%; */
 }
 .select{
     display: flex;
@@ -89,12 +110,14 @@ body{
     width: 33%;
     align-items: center;
 }
+
+
 .pagination-container{
     display: flex;
     align-items: center;
     justify-content: space-evenly;
     position: sticky;
-    bottom: 22px;
+    bottom: 0;
     width: 100%;
 }
 .pagination{
