@@ -13,13 +13,17 @@
         <div class="icon">
             <img src="https://avatars.githubusercontent.com/u/80106239?v=4" id="iconimg" alt="icon">
             <a href="https://github.com/Satvik-Rave" id="link"
-                style="text-decoration: none; color: black;">https://github.com/Satvik-Rave</a>
+                style="text-decoration: none; color: black;" target="_blank">https://github.com/Satvik-Rave</a>
         </div>
         <div class="desc">
             <div id="name">Satvik Jain</div>
             <div id="bio">Description</div>
             <div id="location">India</div>
             <!-- <div class="twitter">Twitter: </div> -->
+        </div>
+        <div class="srh">
+            <input type="text" name="" id="search" placeholder="Search by repo name">
+            <button id="sbtn">Search</button>
         </div>
     </div>
     <div id="c2">
@@ -36,16 +40,25 @@
         </div> -->
     </div>
     <div class="pagination-container">
-        <div class="pagination">
-            <button class="control" id="prev" title="Previous page">
-                < Prev </button>
-                    <div class="pageNumbers">
-                        <!--Page Numbers-->
-                    </div>
-                    <button class="control" id="next" title="Next page">
-                        Next >
-                    </button>
+        <div class="select">
+            <label for="entries">No. of repos &nbsp;</label>
+            <select name="entries" id="perpage">
+                <option value="5">5</option>
+                <option value="10" selected>10</option>
+                <option value="25">25</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+            </select>
+            <button id="btn">Show</button>
         </div>
+        <div class="pagination">
+            <button class="control" id="prev" title="Previous page">< Prev</button>
+                <div class="pageNumbers">
+                    <!--Page Numbers-->
+                </div>
+            <button class="control" id="next" title="Next page">Next ></button>
+        </div>
+        <div class="space"></div>
     </div>
     <script src="script.js"></script>
     <!-- <script src="script2.js" defer></script> -->

@@ -6,17 +6,18 @@ async function bioUpdate() {
     await fetch(`https://api.github.com/users/${user}`)
         .then((res) => { return res.json(); })
         .then(async (data) => {
-            console.log(data);
+            // console.log(data);
             document.getElementById("name").innerHTML = data.name;
             document.getElementById("location").innerHTML = data.location;
             document.getElementById("link").innerHTML = data.html_url;
+            document.getElementById("link").setAttribute("href",data.html_url);
             document.getElementById("bio").innerHTML = data.bio;
             document.getElementById("iconimg").setAttribute("src", data.avatar_url);
         });
 };
 // bioUpdate();
 async function apiCall() {
-    await fetch(`https://api.github.com/users/${user}/repos`)
+    await fetch(`https://api.github.com/users/${user}/repos?per_page=100`)
         .then((res) => { return res.json(); })
         .then(async (data) => {
             // console.log(data);
@@ -64,99 +65,128 @@ Promise.all([bioUpdate(), apiCall()]).then(() => {
     const listItems = paginationList.querySelectorAll(".repos");
     const prevButton = document.getElementById("prev");
     const nextButton = document.getElementById("next");
-
-    const contentLimit = 10;
-    const pageCount = Math.ceil(listItems.length / contentLimit);
-    let currentPage = 1;
-
-    console.log(listItems.length);
-
-    const displayPageNumbers = (index) => {
-        const pageNumber = document.createElement("a");
-        pageNumber.innerText = index;
-        pageNumber.setAttribute('href', "#");
-        pageNumber.setAttribute("index", index);
-        pageNumbers.appendChild(pageNumber);
-    };
-
-    const getPageNumbers = () => {
-        for (let i = 1; i <= pageCount; i++) {
-            displayPageNumbers(i);
+    var contentLimit = 10;
+    function manage() {
+        const btn = document.querySelector('#btn');  
+        const sb = document.querySelector('#perpage'); 
+        // console.log(sb.value);
+        contentLimit=sb.value;  
+        const pageCount = Math.ceil(listItems.length / contentLimit);
+        let currentPage = 1;
+    
+        console.log(listItems.length);
+        console.log(pageCount);
+    
+        const displayPageNumbers = (index) => {
+            const pageNumber = document.createElement("a");
+            pageNumber.innerText = index;
+            pageNumber.setAttribute("href", "#");
+            pageNumber.setAttribute("index", index);
+            pageNumbers.appendChild(pageNumber);
         };
-    };
-
-    const disableButton = (button) => {
-        button.classList.add("disabled");
-        button.setAttribute("disabled", true);
-    };
-
-    const enableButton = (button) => {
-        button.classList.remove("disabled");
-        button.removeAttribute("disabled");
-    };
-
-    const controlButtonsStatus = () => {
-        if (currentPage == 1) {
-            disableButton(prevButton);
-        }
-        else {
-            enableButton(prevButton);
-        }
-        if (pageCount == currentPage) {
-            disableButton(nextButton);
-        }
-        else {
-            enableButton(nextButton);
-        }
-    };
-
-    const handleActivePageNumber = () => {
-        document.querySelectorAll('a').forEach((button) => {
-            button.classList.remove("active");
-            const pageIndex = Number(button.getAttribute("index"));
-            if (pageIndex == currentPage) {
-                button.classList.add('active');
+    
+        const getPageNumbers = () => {
+            document.querySelector(".pageNumbers").innerHTML="";
+            for (let i = 1; i <= pageCount; i++) {
+                displayPageNumbers(i);
+            };
+        };
+        const disableButton = (button) => {
+            button.classList.add("disabled");
+            button.setAttribute("disabled", true);
+        };
+    
+        const enableButton = (button) => {
+            button.classList.remove("disabled");
+            button.removeAttribute("disabled");
+        };
+    
+        const controlButtonsStatus = () => {
+            if (currentPage == 1) {
+                disableButton(prevButton);
             }
-        });
-    };
-
-    const setCurrentPage = (pageNum) => {
-        currentPage = pageNum;
-
-        handleActivePageNumber();
-        controlButtonsStatus();
-
-        const prevRange = (pageNum - 1) * contentLimit;
-        const currRange = pageNum * contentLimit;
-
-        listItems.forEach((item, index) => {
-            item.classList.add('hidden');
-            if (index >= prevRange && index < currRange) {
-                item.classList.remove('hidden');
+            else {
+                enableButton(prevButton);
             }
-        });
-    };
-
-    window.addEventListener('load', () => {
+            if (pageCount == currentPage) {
+                disableButton(nextButton);
+            }
+            else {
+                enableButton(nextButton);
+            }
+        };
+        
+        const handleActivePageNumber = () => {
+            document.querySelectorAll('.pageNumbers a').forEach((button) => {
+                button.classList.remove("active");
+                const pageIndex = Number(button.getAttribute("index"));
+                if (pageIndex == currentPage) {
+                    button.classList.add('active');
+                }
+            });
+        };
+        
+        const setCurrentPage = (pageNum) => {
+            currentPage = pageNum;
+            
+            handleActivePageNumber();
+            controlButtonsStatus();
+            
+            const prevRange = (pageNum - 1) * contentLimit;
+            const currRange = pageNum * contentLimit;
+            
+            listItems.forEach((item, index) => {
+                item.classList.add('hidden');
+                if (index >= prevRange && index < currRange) {
+                    item.classList.remove('hidden');
+                }
+            });
+        };
         getPageNumbers();
         setCurrentPage(1);
-
+    
         prevButton.addEventListener('click', () => {
             setCurrentPage(currentPage - 1);
         });
-
+    
         nextButton.addEventListener("click", () => {
             setCurrentPage(currentPage + 1);
         });
-
-        document.querySelectorAll('a').forEach((button) => {
+    
+        document.querySelectorAll('.pageNumbers a').forEach((button) => {
             const pageIndex = Number(button.getAttribute('index'));
-
+    
             if (pageIndex) {
                 button.addEventListener('click', () => {
                     setCurrentPage(pageIndex);
                 });
             };
         });
-    });
+    } 
+    manage();
+    btn.onclick = (event) =>  
+    {  
+        manage();
+    };  
+
+    var sbtn = document.getElementById("sbtn");
+		sbtn.onclick = e=>{
+			const text = document.getElementById("search").value;
+			// console.log(text);
+            for (let i = 0; i < listItems.length; i++) {
+                const ele=document.querySelectorAll(".repo h2")[i];
+                const matchText=ele.innerHTML;
+                console.log(matchText);
+                console.log(text);
+                if(text===""){
+                    document.querySelectorAll(".repos")[i].classList.remove('hidden');
+                }
+                else if(text.toLowerCase()===matchText.toLowerCase()) {
+                    document.querySelectorAll(".repos")[i].classList.remove('hidden');
+                }
+                else{
+                    document.querySelectorAll(".repos")[i].classList.add('hidden');
+                }
+            }
+		}
 });
