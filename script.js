@@ -1,8 +1,10 @@
-// const user="mojombo";
+const user="mojombo";
 // const user = "Satvik-Rave";
-const user="johnpapa";
+// const user="johnpapa";
 // const user="milind-nair";
 // const user="mansi-123";
+
+document.querySelector(".pageNumbers").classList.add("hidden");
 async function bioUpdate() {
     await fetch(`https://api.github.com/users/${user}`)
         .then((res) => { return res.json(); })
@@ -10,6 +12,9 @@ async function bioUpdate() {
             // console.log(data);
             document.getElementById("name").innerHTML = data.name;
             document.querySelector("#location span").innerText = data.location;
+            if(data.location===""){
+                document.querySelector(".fi-ss-marker").classList.add("hidden");
+            }
             document.getElementById("link").innerHTML = data.html_url;
             document.getElementById("link").setAttribute("href",data.html_url);
             document.getElementById("bio").innerHTML = data.bio;
@@ -19,10 +24,10 @@ async function bioUpdate() {
 // bioUpdate();
 async function apiCall() {
     await fetch(`https://api.github.com/users/${user}/repos?per_page=100`)
-        .then((res) => { return res.json(); })
-        .then(async (data) => {
-            data.sort((a, b) => new Date(b.pushed_at) - new Date(a.pushed_at));
-            console.log(data);
+    .then((res) => { return res.json(); })
+    .then(async (data) => {
+        data.sort((a, b) => new Date(b.pushed_at) - new Date(a.pushed_at));
+        console.log(data);
             for (let i = 0; i < data.length; i++) {
                 var ele = data[i];
                 // console.log(ele);
@@ -51,12 +56,12 @@ async function apiCall() {
                 document.getElementById("c2").innerHTML += update;
             }
         });
-};
-// apiCall();
-
-async function getStr(name) {
-    var langsStr = "";
-    await fetch(`https://api.github.com/repos/${user}/${name}/languages`)
+    };
+    // apiCall();
+    
+    async function getStr(name) {
+        var langsStr = "";
+        await fetch(`https://api.github.com/repos/${user}/${name}/languages`)
         .then((res) => { return res.json(); })
         .then((data) => {
             langs = Object.keys(data);
@@ -74,16 +79,20 @@ async function getStr(name) {
                 langsStr += `<div class="lang">${element}</div>`;
             }
         });
-    // console.log(langsStr);
+        // console.log(langsStr);
     return langsStr;
 }
 
 Promise.all([bioUpdate(), apiCall()]).then(() => {
+    document.querySelector(".loading").classList.add("hidden");
+    document.querySelector(".pageNumbers").classList.remove("hidden");
     const pageNumbers = document.querySelector(".pageNumbers");
     const paginationList = document.getElementById("c2");
     const listItems = paginationList.querySelectorAll(".repos");
     const prevButton = document.getElementById("prev");
+    const prevmButton = document.getElementById("prevm");
     const nextButton = document.getElementById("next");
+    const nextmButton = document.getElementById("nextm");
     var contentLimit = 10;
     function manage() {
         const btn = document.querySelector('#btn');  
@@ -123,15 +132,19 @@ Promise.all([bioUpdate(), apiCall()]).then(() => {
         const controlButtonsStatus = () => {
             if (currentPage == 1) {
                 disableButton(prevButton);
+                disableButton(prevmButton);
             }
             else {
                 enableButton(prevButton);
+                enableButton(prevmButton);
             }
             if (pageCount == currentPage) {
                 disableButton(nextButton);
+                disableButton(nextmButton);
             }
             else {
                 enableButton(nextButton);
+                enableButton(nextmButton);
             }
         };
         
@@ -167,8 +180,14 @@ Promise.all([bioUpdate(), apiCall()]).then(() => {
         prevButton.addEventListener('click', () => {
             setCurrentPage(currentPage - 1);
         });
+        prevmButton.addEventListener('click', () => {
+            setCurrentPage(currentPage - 1);
+        });
     
         nextButton.addEventListener("click", () => {
+            setCurrentPage(currentPage + 1);
+        });
+        nextmButton.addEventListener("click", () => {
             setCurrentPage(currentPage + 1);
         });
     
@@ -183,7 +202,7 @@ Promise.all([bioUpdate(), apiCall()]).then(() => {
         });
     } 
     manage();
-    btn.onclick = (event) =>  
+    btn.onclick = () =>  
     {  
         manage();
     };  

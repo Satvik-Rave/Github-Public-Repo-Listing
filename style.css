@@ -169,7 +169,10 @@ body{
     border: 2px solid white;
     border-radius: 25px;
 }
-.mob{
+/* .mob{
+    display: none;
+} */
+#prevm, #nextm{
     display: none;
 }
 .pageNumbers{
@@ -234,14 +237,14 @@ a.active{
         height: 10vh;
         background-color: black;
     }
-    .mob{
+    #prevm, #nextm{
         display: block;
         border: none;
         padding: 3px 3px;
     }
-    .sc{
+    #prev, #next{
         display: none;
-    }
+    } 
     .select{
         width: 100%;
     }
