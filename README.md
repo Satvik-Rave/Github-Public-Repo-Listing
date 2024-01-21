@@ -1,6 +1,7 @@
 # GitHub Public Repository Lister Application
 ### This is a GitHub public repository lister application that provides all the publically available repositories of a particular user.
 This application is made by using basic HTML, CSS, and JavaScript along with API integration to fetch GitHub data.
+* The repositories are sorted according to the latest time of updation.
 * The per-page limit of listing varies from 5 to 100 items per page.
 * The application is hosted over GitHub pages for a live view on this link-
 https://satvik-rave.github.io/Github-Public-Repo-Listing/
