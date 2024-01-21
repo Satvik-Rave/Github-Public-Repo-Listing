@@ -1,6 +1,6 @@
 // const user="mojombo";
-const user = "Satvik-Rave";
-// const user="johnpapa";
+// const user = "Satvik-Rave";
+const user="johnpapa";
 // const user="milind-nair";
 // const user="mansi-123";
 async function bioUpdate() {
@@ -21,14 +21,31 @@ async function apiCall() {
     await fetch(`https://api.github.com/users/${user}/repos?per_page=100`)
         .then((res) => { return res.json(); })
         .then(async (data) => {
-            // console.log(data);
+            data.sort((a, b) => new Date(b.pushed_at) - new Date(a.pushed_at));
+            console.log(data);
             for (let i = 0; i < data.length; i++) {
                 var ele = data[i];
                 // console.log(ele);
                 var name = ele.name;
                 var description = ele.description;
                 var repoLink = ele.html_url;
-                var langsStr = await getStr(name);
+                var num = 0;
+                var langs=ele.topics;
+                var langsStr="";
+                if(langs.length!==0){
+                    if (langs.length > 8) {
+                        num = 8;
+                    }
+                    else {
+                        num = langs.length;
+                    }
+                    // console.log(num);
+                    for (let j = 0; j < num; j++) {
+                        const element = langs[j];
+                        langsStr += `<div class="lang">${element}</div>`;
+                    }
+                }
+                else langsStr = await getStr(name);
                 // console.log(langsStr);
                 var update = `<div class="repos"><div class="repo"><a href="${repoLink}" style="text-decoration: none; color: black;" target="_blank"><h2>${name}</h2></a><div class="bio">${description}</div><div class="languages">${langsStr}</div></div></div>`;
                 document.getElementById("c2").innerHTML += update;
@@ -45,8 +62,8 @@ async function getStr(name) {
             langs = Object.keys(data);
             // console.log(langs.length);
             var num = 0;
-            if (langs.length > 6) {
-                num = 6;
+            if (langs.length > 8) {
+                num = 8;
             }
             else {
                 num = langs.length;
@@ -76,8 +93,8 @@ Promise.all([bioUpdate(), apiCall()]).then(() => {
         const pageCount = Math.ceil(listItems.length / contentLimit);
         let currentPage = 1;
     
-        console.log(listItems.length);
-        console.log(pageCount);
+        // console.log(listItems.length);
+        // console.log(pageCount);
     
         const displayPageNumbers = (index) => {
             const pageNumber = document.createElement("a");

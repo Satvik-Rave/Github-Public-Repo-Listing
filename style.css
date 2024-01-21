@@ -90,6 +90,9 @@ body{
 }
 .languages{
     width: 100%;
+    flex-wrap: wrap;
+    align-items: center;
+    height: 10vh;
     display: flex;
 }
 .lang{
@@ -98,17 +101,6 @@ body{
     border-radius: 5px;
     color: white;
     margin-right: 15px;
-}
-.select{
-    display: flex;
-    width: 33%;
-    align-items: center;
-    justify-content: center;
-}
-.space{
-    display: flex;
-    width: 33%;
-    align-items: center;
 }
 
 
@@ -119,49 +111,151 @@ body{
     position: sticky;
     bottom: 0;
     width: 100%;
+    background-color: #000000cf;
+    padding: 0.5% 0;
 }
 .pagination{
-    width: 33%;
-    border-radius: 35px;
-    box-shadow: 0 0 20px 5px rgb(3, 3, 43);
+    width: 50%;
+    /* border-radius: 35px; */
+    /* box-shadow: 0 0 20px 5px rgb(3, 3, 43); */
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: rgb(15, 64, 109);
-    padding: 10px 10px;
+    /* background-color: rgb(15, 64, 109); */
+    /* padding: 10px 10px; */
+}
+.select{
+    display: flex;
+    width: 25%;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
+.select select{
+    border: 2px solid black;
+}
+.space{
+    display: flex;
+    width: 25%;
+    align-items: center;
 }
 .pagination a{
-    padding: 9px 18px;
-    font-weight: 500;
+    padding: 3px 7px;
+    /* font-weight: 500; */
     text-decoration: none;
-    font-size: 20px;
-    color: rgb(155, 155, 238);
-    border-radius: 50%;
+    font-size: 15px;
+    color: white;
+    /* border-radius: 50%; */
     transition: 0.5s ease-in-out;
+    border: 2px solid black;
+}
+#btn{
+    padding: 3px;
+    background-color: #0082f3;
+    border-radius: 5px;
+    color: white;
+    margin-left: 2%;
 }
 .control{
-    font-size: 20px;
+    font-size: 15px;
     font-weight: bold;
     background-color: transparent;
-    color: rgb(200, 200, 239);
+    color: white;
     border: none;
     cursor: pointer;
-    padding: 10px 10px;
-    border-radius: 25px;
+    padding: 5px 7px;
+    /* border-radius: 25px; */
     transition: 0.5s ease-in-out ;
+    border: 2px solid white;
+    border-radius: 25px;
+}
+.mob{
+    display: none;
+}
+.pageNumbers{
+    display: flex;
+    margin: 0 2%;
+    /* background-color: white; */
 }
 .disabled{
-    color: rgba(12, 16, 41, 0.5);
+    border: 2px solid rgb(255 255 255 / 50%);;
+    color: rgb(255 255 255 / 50%);
     cursor: default;
 }
 .control:not(.disabled):hover,.pageNumbers a:hover{
-    background-color: rgb(9, 9, 75);
+    background-color: #0082f3;
     color: white;
 }
 a.active{
-    background-color: rgb(9, 9, 75);
+    background-color: #0082f3;
     color: white;
 }
 .hidden{
     display: none;
+}
+
+/* Responsive */
+@media only screen and (max-width:500px) {
+    .c1{
+        flex-direction: column;
+        height: 90vh;
+        align-items: center;
+    }
+    .icon{
+        width: 100%;
+    }
+    .icon div{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .desc{
+        width: 100%;
+        align-items: center;
+    }
+    .srh{
+        width: 60%;
+        justify-content: space-between;
+    }
+    .srh input{
+        width: 70%;
+    }
+    #c2{
+        display: flex;
+        flex-direction: column;
+    }
+    .languages{
+        flex-wrap: wrap;
+        align-items: center;
+        height: 13vh;
+    }
+    .pagination-container{
+        flex-direction: column;
+        height: 10vh;
+        background-color: black;
+    }
+    .mob{
+        display: block;
+        border: none;
+        padding: 3px 3px;
+    }
+    .sc{
+        display: none;
+    }
+    .select{
+        width: 100%;
+    }
+    .space{
+        display: none;
+    }
+    .pagination{
+        width: 100%;
+    }
+    .pagination a{
+        border: none;
+        padding: 3px 3px;
+    }
+    .pageNumbers{
+        margin: 0;
+    }
 }
