@@ -1,5 +1,5 @@
-const user="mojombo";
-// const user = "Satvik-Rave";
+// const user="mojombo";
+const user = "Satvik-Rave";
 // const user="johnpapa";
 // const user="milind-nair";
 // const user="mansi-123";
@@ -108,7 +108,7 @@ Promise.all([bioUpdate(), apiCall()]).then(() => {
         const displayPageNumbers = (index) => {
             const pageNumber = document.createElement("a");
             pageNumber.innerText = index;
-            pageNumber.setAttribute("href", "#");
+            pageNumber.setAttribute("href", "#c2");
             pageNumber.setAttribute("index", index);
             pageNumbers.appendChild(pageNumber);
         };
